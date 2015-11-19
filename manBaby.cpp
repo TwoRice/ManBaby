@@ -6,17 +6,18 @@
 using namespace std;
 
 
-
 /**
 * 
 */
-void loadFile(){
+Store loadFile(Store theStore){
 
 	string fileName;
 	cout << "Enter Filename (Without Extension): " << endl;
 	cin >> fileName;
 	fileName.append(".txt");
+	theStore.loadProgram(fileName);
 
+	return theStore;
 
 }
 
@@ -29,9 +30,11 @@ void displayMenu(){
 	cout << "(2) Exit" << endl;
 }
 
-void Menu(){
+void menu(){
 	
-int option;
+	Processor theProcessor;
+	Store theStore;
+	int option;
 
 	do
 	{
@@ -44,19 +47,19 @@ int option;
 			//Option 1: Calls the loadfile method -
 			//loadfile() .....................
 			case 1:
-			loadFile();
+				theStore = loadFile(theStore);
 
-			break;
+				break;
 
 			case 2:
-			cout << "Exiting Program" << endl;
+				cout << "Exiting Program" << endl;
 
-			break;
+				break;
 
 			default:
-			cout << "Invalid Option" << endl;
+				cout << "Invalid Option" << endl;
 
-			break;
+				break;
 
 		}
 
@@ -70,7 +73,7 @@ int option;
 */
 int main(){
 
- 	Menu();
+ 	menu();
 
 	return 0;
 
