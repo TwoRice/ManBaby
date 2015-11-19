@@ -7,5 +7,6 @@ class Store{
 	public : 
 
 		Store();
+		void loadProgram(string fileName);
 
 };
