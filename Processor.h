@@ -9,6 +9,10 @@ class Processor{
 	public : 	
 
 		Processor();
+		void resetCI();
+		int convertBinToDec(bool binary[]);
+		bool* convertDecToBin(int decimal);
+		void increment();
 
 
 };
