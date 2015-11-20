@@ -7,6 +7,9 @@ class Store{
 	public : 
 
 		Store();
+		bool* readMemory(int location);
+		void writeMemory(int location, bool data[32]);
 		void loadProgram(string fileName);
 
 };
+
