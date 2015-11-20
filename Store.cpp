@@ -19,6 +19,30 @@ Store::Store(){
 	}
 }
 
+bool* Store::readMemory(int location){
+
+	bool data[32];
+
+	for(int i = 0; i < 32; i++){
+
+		data[i] = memory[location][i];
+
+	}
+
+	return data;
+
+}
+
+void Store::writeMemory(int location, bool data[32]){
+
+	for(int i = 0; i < 32; i++){
+
+		memory[location][i] = data[i];
+
+	}
+
+}
+
 void Store::loadProgram(string fileName){
 
 	ifstream reader;
