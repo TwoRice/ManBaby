@@ -1,10 +1,36 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "Processor.cpp"
 #include "Store.cpp"
 
 using namespace std;
 
+
+/**
+*Method which validates if what is entered by the user is an integer
+*
+*return : myInt - integer value entered by the user
+*/
+int readInt(){
+
+	string input;
+	int myInt;
+
+	while (true){
+
+		getline(cin, input);
+
+		stringstream stream(input);
+		if (stream >> myInt){
+			break;
+		}
+		cout << "Please only enter an integer value" << endl;
+	}
+
+	return myInt;
+
+}
 
 /**
 * 
@@ -13,7 +39,7 @@ Store loadFile(Store theStore){
 
 	string fileName;
 	cout << "Enter Filename (Without Extension): " << endl;
-	cin >> fileName;
+	getline(cin, fileName);
 	fileName.append(".txt");
 	theStore.loadProgram(fileName);
 
@@ -41,7 +67,7 @@ void menu(){
 
 		displayMenu();
 		cout << "Enter an Option: ";
-		cin >> option;
+		option = readInt();
 
 		switch(option){
 			//Option 1: Calls the loadfile method -
