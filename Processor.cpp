@@ -16,6 +16,10 @@ Processor::Processor(){
 
 }
 
+/**
+*Method which resets each element of ci[] to 0
+*
+*/
 void Processor::resetCI(){
 
 	for (int i = 0; i < 32; i++)
@@ -25,6 +29,12 @@ void Processor::resetCI(){
 
 }
 
+/**
+*Method which converts binary array into decimal integer
+*
+*param a: bool binary[] - binary array for conversion
+*return : int decimal	- binary array converted to integer
+*/
 int Processor::convertBinToDec(bool binary[], int length){
 
 	int decimal = 0;
@@ -40,6 +50,12 @@ int Processor::convertBinToDec(bool binary[], int length){
 
 }
 
+/**
+*Method which converts decimal integer into binary array
+*
+*param a: int decimal - decimal number for conversion
+*return : array[]	  - decimal number converted to binary
+*/
 bool* Processor::convertDecToBin(int decimal){
 
 	bool array[32]; 
@@ -60,6 +76,11 @@ bool* Processor::convertDecToBin(int decimal){
 	return array;
 }
 
+/**
+*Method which converts ci[] into decimal, increments the result
+*and finally, converts the decimal integer back into ci[] 
+*
+*/
 void Processor::increment(){
 
 	int decimal = convertBinToDec(ci,32);
