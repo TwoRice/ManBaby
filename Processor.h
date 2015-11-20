@@ -13,6 +13,8 @@ class Processor{
 		int convertBinToDec(bool binary[]);
 		bool* convertDecToBin(int decimal);
 		void increment();
+		int fetchOperand();
+
 
 
 };
