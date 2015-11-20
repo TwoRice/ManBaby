@@ -73,4 +73,20 @@ void increment(){
 	//convert back to Bin
 	//place Bin back in CI[]
 }
+
+int Processor::fetchOperand(){
+
+	bool operand[5];
+
+	for(int i= 0; i < 5; i++){
+
+		operand[i] = pi[i];
+
+	}
+
+	int memLoc = converToDec(operand);
+
+	return memLoc;
+
+}
 	
