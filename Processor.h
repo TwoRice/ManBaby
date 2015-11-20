@@ -10,11 +10,9 @@ class Processor{
 
 		Processor();
 		void resetCI();
-		int convertBinToDec(bool binary[]);
+		int convertBinToDec(bool binary[], int length);
 		bool* convertDecToBin(int decimal);
 		void increment();
 		int fetchOperand();
-
-
 
 };
