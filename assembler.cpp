@@ -8,6 +8,7 @@ using namespace std;
 string instructionSet[8][2];
 //vector<string> instructionSet[8][2];
 vector<string> program;
+vector<string> symbol[3];
 
 void openInstSet()
 {
@@ -49,18 +50,51 @@ void loadProgram()
     //REMOVE COMMERNTS
     for (int i=0; i<program.size(); i++)
     {
-        for (int j=0; j<program.at(i).size();j++)
+        for (int j=0; j<program.at(i).size(); j++)
         {
             if(program.at(i).at(j)==';')
             {
-                program.at(i).erase(j,(program.at(i).size())-j);
+                program.at(i).erase(j,(program.at(i).size()-j));
             }
         }
-        cout << program.at(i) << endl;
+
     }
+//    //REMOVE WHITESPACE
+//    for (int i=0; i<program.size(); i++)
+//    {
+//        for (int j=0; j<program.at(i).size(); j++)
+//        {
+//            if(program.at(i).at(j)==' ')
+//            {
+//                program.at(i).erase(j,1);
+//            }
+//
+//        }
+//        cout << program.at(i) << endl;
+//    }
 
-
+    //POPULATE SYMBOL TABLE
+    string sLines[3];
+    for (int i=0; i<program.size(); i++)
+    {
+        for (int j=0; j<program.at(i).size(); j++)
+        {
+            if(program.at(i).at(j)==':')
+            {
+                stringstream split(program.at(i));
+                for (int k=0; k<2; k++)
+                {
+                    getline(split, sLines[k],' ');
+                    sLines[2]=i;
+                    cout << sLines[k] << endl;
+                }
+            }
+        }
+    }
 }
+
+
+
 
 int main()
 {
