@@ -52,8 +52,8 @@ void ManBaby::decode(){
 	int twosCompNum;
 	bool num[32];
 
-	operand = theProcessor.fetchOp(0, 4);
-	opcode = theProcessor.fetchOp(13, 15);
+	operand = theProcessor.getOp(0, 4);
+	opcode = theProcessor.getOp(13, 15);
 	
 	num = theStore.readMemory(operand);
 	twosCompNum = theProcessor.twosComp(num);
