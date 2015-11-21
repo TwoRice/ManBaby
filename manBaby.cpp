@@ -7,6 +7,59 @@
 using namespace std;
 
 
+class ManBaby{
+
+	private :
+
+		Processor theProcessor;
+		Store theStore;
+
+	public : 
+		
+		void loadProgramToMemory();	
+		void fetch();
+		void decode();
+
+
+};
+
+void ManBaby::loadProgramToMemory(){
+
+	string fileName;
+	cout << "Enter Filename (Without Extension): " << endl;
+	getline(cin, fileName);
+	fileName.append(".txt");
+	theStore.loadProgram(fileName);
+
+
+}
+
+void ManBaby::fetch(){
+
+	int memoryAddress;
+
+	memoryAddress = theProcessor.convertBinToDec(theProcessor.getCI(),32);
+	theProcessor.increment();
+	theProcessor.setPI(theStore.readMemory(memoryAddress));
+	cout << memoryAddress << endl;
+
+}
+
+void ManBaby::decode(){
+
+	int operand;
+	int opcode;
+
+	operand = theProcessor.fetchOp(0, 4);
+	opcode = theProcessor.fetchOp(13, 15);
+
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////
+
+
 /**
 *Method which validates if what is entered by the user is an integer
 *
@@ -32,20 +85,6 @@ int readInt(){
 
 }
 
-/**
-* 
-*/
-Store loadFile(Store theStore){
-
-	string fileName;
-	cout << "Enter Filename (Without Extension): " << endl;
-	getline(cin, fileName);
-	fileName.append(".txt");
-	theStore.loadProgram(fileName);
-
-	return theStore;
-
-}
 
 /**
 * 
@@ -58,8 +97,7 @@ void displayMenu(){
 
 void menu(){
 	
-	Processor theProcessor;
-	Store theStore;
+	ManBaby theBaby;
 	int option;
 
 	do
@@ -73,7 +111,9 @@ void menu(){
 			//Option 1: Calls the loadfile method -
 			//loadfile() .....................
 			case 1:
-				theStore = loadFile(theStore);
+				
+				theBaby.loadProgramToMemory();
+				theBaby.fetch();
 
 				break;
 
