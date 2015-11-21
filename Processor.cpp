@@ -16,6 +16,22 @@ Processor::Processor(){
 
 }
 
+bool* Processor::getCI(){
+
+	return ci;
+
+}
+
+void Processor::setPI(bool instruction[32]){
+
+	for(int i = 0; i < 32; i++){
+
+		pi[i] = instruction[i];
+
+	}
+
+}
+
 /**
 *Method which resets each element of ci[] to 0
 *
@@ -89,17 +105,18 @@ void Processor::increment(){
 	
 }
 
-int Processor::fetchOperand(){
+int Processor::fetchOp(int start, int end){
 
-	bool operand[5];
+	int size = (end-start)+1;
+	bool operand[size];
 
-	for(int i= 0; i < 5; i++){
+	for(int i= start; i < (end+1); i++){
 
 		operand[i] = pi[i];
 
 	}
 
-	int memLoc = convertBinToDec(operand,5);
+	int memLoc = convertBinToDec(operand,size);
 
 	return memLoc;
 
