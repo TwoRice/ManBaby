@@ -92,6 +92,42 @@ bool* Processor::convertDecToBin(int decimal){
 	return array;
 }
 
+int Processor::twosComp(bool operand[32]){
+
+	int first1;
+
+	if(operand[31] == 0){
+
+		
+		return convertBinToDec(operand, 32);
+
+	}
+
+	else{
+
+		for(int i = 0; i < 32; i++){
+
+			if(operand[i] == 1){
+
+				first1 = i;
+				break;
+
+			}
+
+		}
+
+		for(int i = 31; i > first1; i--){
+
+			operand[i]==0 ? 1 : 0;			
+
+		}
+
+		return (-1 * convertBinToDec(operand, 32));
+
+	}
+
+}
+
 /**
 *Method which converts ci[] into decimal, increments the result
 *and finally, converts the decimal integer back into ci[] 
@@ -105,7 +141,7 @@ void Processor::increment(){
 	
 }
 
-int Processor::fetchOp(int start, int end){
+int Processor::getOp(int start, int end){
 
 	int size = (end-start)+1;
 	bool operand[size];
