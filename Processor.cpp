@@ -55,13 +55,11 @@ int Processor::convertBinToDec(bool binary[], int length){
 
 	int decimal = 0;
 
-		for (int i = length - 1; i >= 0; i--)
-		{
-			decimal += (int(binary[i]))*pow(2,i);
-		}
+	for (int i = length - 1; i >= 0; i--)
+	{
+		decimal += (int(binary[i]))*pow(2,i);
+	}
 
-	cout << "Conversion of Binary to Decimal complete" << endl;
-	cout << decimal << endl;
 	return decimal;
 
 }
@@ -74,7 +72,7 @@ int Processor::convertBinToDec(bool binary[], int length){
 */
 bool* Processor::convertDecToBin(int decimal){
 
-	bool array[32]; 
+	bool static array[32]; 
 	int index = 0;
 
 		for (int i = 0; i < 32; i++)
@@ -92,37 +90,28 @@ bool* Processor::convertDecToBin(int decimal){
 	return array;
 }
 
-int Processor::twosComp(bool operand[32]){
+bool* Processor::negate(bool operand[32]){
 
 	int first1;
 
-	if(operand[31] == 0){
+	for(int i = 0; i < 32; i++){
 
-		
-		return convertBinToDec(operand, 32);
+		if(operand[i] == 1){
+
+			first1 = i;
+			break;
+
+		}
 
 	}
 
-	else{
+	for(int i = 31; i > first1; i--){
 
-		for(int i = 0; i < 32; i++){
+		operand[i]==0 ? 1 : 0;			
 
-			if(operand[i] == 1){
+	}
 
-				first1 = i;
-				break;
-
-			}
-
-		}
-
-		for(int i = 31; i > first1; i--){
-
-			operand[i]==0 ? 1 : 0;			
-
-		}
-
-		return (-1 * convertBinToDec(operand, 32));
+	return operand;
 
 	}
 
