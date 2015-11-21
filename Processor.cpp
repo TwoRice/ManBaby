@@ -113,8 +113,6 @@ bool* Processor::negate(bool operand[32]){
 
 	return operand;
 
-	}
-
 }
 
 /**
