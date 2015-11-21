@@ -16,6 +16,39 @@ Processor::Processor(){
 
 }
 
+/**
+*Method which
+*
+*/
+void Processor::setAccumulator(bool accumulator[]){
+//this -> accumulator = accumulator
+}
+
+/**
+*Method which
+* 
+*/
+void Processor::getAccumulator(){
+
+return accumulator[];
+
+}
+
+
+/**
+* Method which 
+*
+*param a : bool memoryaddress[32] 
+*/
+void Processor::setCI(bool memoryaddress[32]){
+
+	for (int i = 0; i < 32; i++)
+	{
+		ci[i] = memoryaddress[i];
+	}
+
+}
+
 bool* Processor::getCI(){
 
 	return ci;
