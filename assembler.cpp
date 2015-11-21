@@ -8,7 +8,13 @@ using namespace std;
 string instructionSet[8][2];
 //vector<string> instructionSet[8][2];
 vector<string> program;
-vector<string> symbol[3];
+struct symbol{
+    string name;
+    string data;
+    string line;
+};
+
+vector<symbol> symbolTable;
 
 void openInstSet()
 {
@@ -57,24 +63,11 @@ void loadProgram()
                 program.at(i).erase(j,(program.at(i).size()-j));
             }
         }
-
     }
-//    //REMOVE WHITESPACE
-//    for (int i=0; i<program.size(); i++)
-//    {
-//        for (int j=0; j<program.at(i).size(); j++)
-//        {
-//            if(program.at(i).at(j)==' ')
-//            {
-//                program.at(i).erase(j,1);
-//            }
-//
-//        }
-//        cout << program.at(i) << endl;
-//    }
+
 
     //POPULATE SYMBOL TABLE
-    string sLines[3];
+    string sLines[3]="";
     for (int i=0; i<program.size(); i++)
     {
         for (int j=0; j<program.at(i).size(); j++)
@@ -82,12 +75,36 @@ void loadProgram()
             if(program.at(i).at(j)==':')
             {
                 stringstream split(program.at(i));
-                for (int k=0; k<2; k++)
-                {
-                    getline(split, sLines[k],' ');
-                    sLines[2]=i;
-                    cout << sLines[k] << endl;
-                }
+
+                getline(split, sLines[0],':');
+                stringstream ss;
+                ss << i;
+                string str = ss.str();
+                sLines[1]=program.at(i);
+                sLines[1].erase(0,j+1);
+                sLines[2]=str;
+                //symbol.push_back(sLines)
+
+                //REMOVE WHITESPACE (DOESN'T FUCKING WORK BECAUSE COMPUTERS HATE ME)
+
+                    for (int i=0; i<3; i++)
+                    {
+                        for (int j=0; j<sLines[i].size(); j++)
+                        {
+                            if(sLines[i].at(j)==' ')
+                            {
+                               sLines[i].erase(j,1);
+                            }
+                        }
+                    }
+                    //ADD SYMBOL TO TABLE WITH IT'S DATA AND LINE NUMBER
+                    symbolTable.push_back(symbol());
+                    symbolTable[symbolTable.size()-1].name=sLines[0];
+                    symbolTable[symbolTable.size()-1].data=sLines[1];
+                    symbolTable[symbolTable.size()-1].line=sLines[2];
+                    cout << symbolTable[symbolTable.size()-1].name << endl;
+                    cout << symbolTable[symbolTable.size()-1].data << endl;
+                    cout << symbolTable[symbolTable.size()-1].line << endl;
             }
         }
     }
