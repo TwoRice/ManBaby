@@ -9,10 +9,12 @@ class Processor{
 	public : 	
 
 		Processor();
+		bool* getCI();
+		void setPI(bool instruction[32]);
 		void resetCI();
 		int convertBinToDec(bool binary[], int length);
 		bool* convertDecToBin(int decimal);
 		void increment();
-		int fetchOperand();
+		int fetchOp(int start, int end);
 
 };
