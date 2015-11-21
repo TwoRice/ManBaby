@@ -14,7 +14,7 @@ class Processor{
 		void resetCI();
 		int convertBinToDec(bool binary[], int length);
 		bool* convertDecToBin(int decimal);
-		int negate(bool operand[32]);
+		bool* negate(bool operand[32]);
 		void increment();
 		int getOp(int start, int end);
 
