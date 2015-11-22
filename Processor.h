@@ -11,9 +11,10 @@ class Processor{
 		Processor();
 		void setAccumulator(bool accumulator[32]);
 		bool* getAccumulator();
-		void setCI(bool memoryaddress[32]);
+		void setCI(bool memoryAddress[32]);
 		bool* getCI();
 		void setPI(bool instruction[32]);
+		bool* getPI();
 		void resetCI();
 		int convertBinToDec(bool binary[], int length);
 		bool* convertDecToBin(int decimal);
