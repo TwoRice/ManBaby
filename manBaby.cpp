@@ -116,7 +116,6 @@ void ManBaby::fetch(){
 	memoryAddress = theProcessor.convertBinToDec(theProcessor.getCI(),32);
 	theProcessor.increment();
 	theProcessor.setPI(theStore.readMemory(memoryAddress));
-	cout << memoryAddress << endl;
 
 }
 
@@ -124,14 +123,14 @@ void ManBaby::decode(){
 
 	int operand;
 	int opcode;
-	int twosCompNum;
-	bool num[32];
+	bool* binNum;
+	int num;
 
 	operand = theProcessor.getOp(0, 4);
 	opcode = theProcessor.getOp(13, 15);
 	
-	num = theStore.readMemory(operand);
-	twosCompNum = theProcessor.twosComp(num);
+	binNum = theStore.readMemory(operand);
+	operand = theProcessor.convertBinToDec(binNum, 32);
 
 }
 
