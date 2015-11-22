@@ -22,8 +22,8 @@ class ManBaby{
 		void ldn(int operand);
 		void sto(int operand);
 		void sub(int operand);
-		void cmp(int operand);
-		void stp(int operand);
+		void cmp();
+		void stp();
 		void fetch();
 		void decode();
 		void execute(int opcode, int operand);
@@ -95,17 +95,25 @@ void ManBaby::sto(int operand){
 * 
 *param a: int operand - integer to be used for operation
 */
-void ManBaby::sub(int operand){
-//accumulator = accumulator - stored operand
+void sub(int operand){
+
+	int accuDecimal = theProcessor.convertBinToDec(accumulator, 32);
+	int memStore = theProcessor.convertBinToDec(theStore.readMemory(operand)); 
+	accuDecimal -= memStore;
+	accumulator = theProcessor.setAccumulator(theProcessor.convertDecToBin(accuDecimal));
 }
 
 /**
 *Method which skips the next instruction if the accumulator contains a negative number
 *
-*param a: int operand - integer to be used for operation
 */
-void ManBaby::cmp(int operand){
-//if accumulator < 0 then ci increments by 1
+void cmp(){
+
+	int accuDecimal = theProcessor.convertBinToDec(accumulator, 32);	
+
+			if(accuDecimal < 0){
+				theProcessor.increment();
+			}
 }
 
 /**
