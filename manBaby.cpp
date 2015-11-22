@@ -17,8 +17,16 @@ class ManBaby{
 	public : 
 		
 		void loadProgramToMemory();	
+		void jmp(int operand);
+		void jrp(int operand);
+		void ldn(int operand);
+		void sto(int operand);
+		void sub(int operand);
+		void cmp(int operand);
+		void stp(int operand);
 		void fetch();
 		void decode();
+		void execute(int opcode, int operand);
 
 
 };
@@ -39,9 +47,9 @@ void ManBaby::loadProgramToMemory(){
 *
 *param a: int operand - integer to be used for operation
 */
-void jmp(int operand){
+void ManBaby::jmp(int operand){
 
-theProcessor.setCI([theStore.readMemory(operand)]);
+	theProcessor.setCI(theStore.readMemory(operand));
 
 }
 
@@ -50,14 +58,12 @@ theProcessor.setCI([theStore.readMemory(operand)]);
 *
 *param a: int operand - integer to be used for operation
 */
-void jrp(int operand){
+void ManBaby::jrp(int operand){
 
-int ciInt = theProcessor.convertBinToDec(ci, 32);
-int memStore = theProcessor.convertBinToDec(Store.readMemory(operand));
-ciOperand += memStore;
-cout << ciOperand << " : test" << endl;
-ci = theProcessor.convertDecToBin(ciOperand);
-theProcessor.setCI(ci);
+	int ciInt = theProcessor.convertBinToDec(theProcessor.getCI(), 32);
+	int memStore = theProcessor.convertBinToDec(theStore.readMemory(operand), 32);
+	ciInt += memStore;
+	theProcessor.setCI(theProcessor.convertDecToBin(ciInt));
 
 }
 
@@ -66,8 +72,10 @@ theProcessor.setCI(ci);
 *
 *param a: int operand - integer to be used for operation
 */
-void ldn(int operand){
-//accumulator negated stored operand
+void ManBaby::ldn(int operand){
+
+	theProcessor.setAccumulator(theProcessor.negate(theStore.readMemory(operand)));
+
 }
 
 /**
@@ -75,10 +83,10 @@ void ldn(int operand){
 *
 *param a: int operand - integer to be used for operation
 */
-void sto(int operand){
+void ManBaby::sto(int operand){
 
-//int memStore = 
-//stored operand = accumulator
+	theStore.writeMemory(operand, theProcessor.getAccumulator());
+
 }
 
 /**
@@ -87,7 +95,7 @@ void sto(int operand){
 * 
 *param a: int operand - integer to be used for operation
 */
-void sub(int operand){
+void ManBaby::sub(int operand){
 //accumulator = accumulator - stored operand
 }
 
@@ -96,7 +104,7 @@ void sub(int operand){
 *
 *param a: int operand - integer to be used for operation
 */
-void cmp(){
+void ManBaby::cmp(int operand){
 //if accumulator < 0 then ci increments by 1
 }
 
@@ -105,8 +113,10 @@ void cmp(){
 *
 *param a: int operand - integer to be used for operation
 */
-void stp(){
-//stop
+void ManBaby::stp(int operand){
+
+	
+
 }
 
 void ManBaby::fetch(){
@@ -131,6 +141,8 @@ void ManBaby::decode(){
 	
 	binNum = theStore.readMemory(operand);
 	operand = theProcessor.convertBinToDec(binNum, 32);
+
+	//execute(opcode, operand);
 
 }
 
@@ -193,6 +205,7 @@ void menu(){
 				
 				theBaby.loadProgramToMemory();
 				theBaby.fetch();
+				theBaby.decode();
 
 				break;
 
