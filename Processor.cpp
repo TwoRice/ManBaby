@@ -21,7 +21,13 @@ Processor::Processor(){
 *
 */
 void Processor::setAccumulator(bool accumulator[]){
-//this -> accumulator = accumulator
+
+	for(int i = 0; i < 32; i++){
+
+		this -> accumulator[i] = accumulator[i];
+
+	}
+
 }
 
 /**
@@ -30,7 +36,7 @@ void Processor::setAccumulator(bool accumulator[]){
 */
 bool* Processor::getAccumulator(){
 
-return accumulator;
+	return accumulator;
 
 }
 
@@ -40,11 +46,11 @@ return accumulator;
 *
 *param a : bool memoryaddress[32] 
 */
-void Processor::setCI(bool memoryaddress[32]){
+void Processor::setCI(bool memoryAddress[32]){
 
 	for (int i = 0; i < 32; i++)
 	{
-		ci[i] = memoryaddress[i];
+		ci[i] = memoryAddress[i];
 	}
 
 }
@@ -62,6 +68,12 @@ void Processor::setPI(bool instruction[32]){
 		pi[i] = instruction[i];
 
 	}
+
+}
+
+bool* Processor::getPI(){
+
+	return pi;
 
 }
 
@@ -194,4 +206,3 @@ int Processor::getOp(int start, int end){
 	return memLoc;
 
 }
-	
