@@ -30,7 +30,7 @@ void Processor::setAccumulator(bool accumulator[]){
 */
 bool* Processor::getAccumulator(){
 
-return accumulator[];
+return accumulator;
 
 }
 
@@ -88,9 +88,26 @@ int Processor::convertBinToDec(bool binary[], int length){
 
 	int decimal = 0;
 
-	for (int i = length - 1; i >= 0; i--)
-	{
-		decimal += (int(binary[i]))*pow(2,i);
+	if(length != 32 || binary[31] == 0){
+
+		for (int i = length - 1; i >= 0; i--){
+
+			decimal += (int(binary[i]))*pow(2,i);
+
+		}
+
+	}
+
+	else{
+
+		decimal = -1 * ((int(binary[31]))*pow(2,31));
+
+		for (int i = 30; i >= 0; i--){
+
+			decimal += (int(binary[i]))*pow(2,i);
+
+		}
+
 	}
 
 	return decimal;
