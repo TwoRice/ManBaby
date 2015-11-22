@@ -28,7 +28,7 @@ void Processor::setAccumulator(bool accumulator[]){
 *Method which
 * 
 */
-void Processor::getAccumulator(){
+bool* Processor::getAccumulator(){
 
 return accumulator[];
 
