@@ -9,9 +9,9 @@ class Processor{
 	public : 	
 
 		Processor();
-		setAccumulator(bool accumulator[32]);
-		getAccumulator();
-		setCI(bool memoryaddress[32]);
+		void setAccumulator(bool accumulator[32]);
+		bool* getAccumulator();
+		void setCI(bool memoryaddress[32]);
 		bool* getCI();
 		void setPI(bool instruction[32]);
 		void resetCI();
