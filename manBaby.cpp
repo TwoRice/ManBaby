@@ -34,6 +34,81 @@ void ManBaby::loadProgramToMemory(){
 
 }
 
+/**
+*Method which jumps to the instruction at the address obtained from the specific memory address
+*
+*param a: int operand - integer to be used for operation
+*/
+void jmp(int operand){
+
+theProcessor.setCI([theStore.readMemory(operand)]);
+
+}
+
+/**
+*Method which jumps to the instruction at the program counter + the relative value obtained from the specified memory address
+*
+*param a: int operand - integer to be used for operation
+*/
+void jrp(int operand){
+
+int ciInt = theProcessor.convertBinToDec(ci, 32);
+int memStore = theProcessor.convertBinToDec(Store.readMemory(operand));
+ciOperand += memStore;
+cout << ciOperand << " : test" << endl;
+ci = theProcessor.convertDecToBin(ciOperand);
+theProcessor.setCI(ci);
+
+}
+
+/**
+*Method which takes the number from the specified memory address _!_
+*
+*param a: int operand - integer to be used for operation
+*/
+void ldn(int operand){
+//accumulator negated stored operand
+}
+
+/**
+*Method which stores the number in the accumulator to the specified memory address _!_
+*
+*param a: int operand - integer to be used for operation
+*/
+void sto(int operand){
+
+//int memStore = 
+//stored operand = accumulator
+}
+
+/**
+*Method which subtracts the number at the specified memory address _!_ from the value in the accumulator
+*and then stores the result in the accumulator
+* 
+*param a: int operand - integer to be used for operation
+*/
+void sub(int operand){
+//accumulator = accumulator - stored operand
+}
+
+/**
+*Method which skips the next instruction if the accumulator contains a negative number
+*
+*param a: int operand - integer to be used for operation
+*/
+void cmp(){
+//if accumulator < 0 then ci increments by 1
+}
+
+/**
+*Method which stops the program
+*
+*param a: int operand - integer to be used for operation
+*/
+void stp(){
+//stop
+}
+
 void ManBaby::fetch(){
 
 	int memoryAddress;
