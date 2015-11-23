@@ -47,8 +47,6 @@ string binaryConv(int n)
     //}else{
         int binary;
         bitset<32> x(n);
-        x.flip();
-        x.flip(x.size()-1);
         stringstream ss;
         ss << x;
         str = ss.str();
@@ -56,20 +54,7 @@ string binaryConv(int n)
     //}
     return str;
 }
-string binaryConvOperand(int n){
-    string str="";
-    //if (n=0){
-    //    str="00000000000000000000000000000000";
-    //}else{
-        int binary;
-        bitset<32> x(n);
-        stringstream ss;
-        ss << x;
-        str = ss.str();
-        reverse(str.begin(),str.end());
-    //}
-    return str;
-}
+
 void openInstSet()
 {
     string lines[7];
@@ -102,24 +87,17 @@ void openProgram()
     {
         while(getline (file,line))
         {
-            program.push_back(line);
+            for (int j=0; j<line.size(); j++)
+            {
+                if(line.at(j)==';')
+                {
+                    line.erase(j,(line.size()-j));
+                }
+            }
+            if(!line.empty())
+                program.push_back(line);
         }
         file.close();
-    }
-
-    //REMOVE COMMERNTS + WHITESPACE
-    for (int i=0; i<program.size(); i++)
-    {
-        for (int j=0; j<program.at(i).size(); j++)
-        {
-            if(program.at(i).at(j)==';')
-            {
-                program.at(i).erase(j,(program.at(i).size()-j));
-            }
-            //trim(program.at(i));
-            //removeSpace(program.at(i));
-        }
-        cout<<program.at(i)<<endl;
     }
 }
 
@@ -141,8 +119,6 @@ void loadSymbols()
                 sLines[1]=program.at(i);
                 sLines[1].erase(0,j+1);
                 sLines[2]=str;
-                //symbol.push_back(sLines)
-
                 //REMOVE WHITESPACE
                 for (int i=0; i<3; i++)
                 {
@@ -159,20 +135,6 @@ void loadSymbols()
         }
     }
 
-    for (int i=0; i<symbolTable.size(); i++)
-    {
-        if (symbolTable.at(i).data.at(0)=='V'&&symbolTable.at(i).data.at(1)=='A'&&symbolTable.at(i).data.at(2)=='R')
-
-        {
-            int n;
-            string str=symbolTable.at(i).data;
-            str.erase(0,3);
-            istringstream (str) >> n;
-            int line;
-            istringstream (symbolTable.at(i).line) >> line;
-            program.at(line)=binaryConv(n);
-        }
-    }
 }
 
 void convProgram()
@@ -197,37 +159,46 @@ void convProgram()
                 operand=symbolTable.at(j).line;
                 int n=0;
                 istringstream (operand) >> n;
-                //NEXT LINE NOT NEEDED WHEN EMPTY ELEMENTS ARE REMOVED FROM VECTOR
-                n=n-4;
-                operand=binaryConvOperand(n);
+                operand=binaryConv(n);
                 newLine.at(0)=operand.at(0);
                 newLine.at(1)=operand.at(1);
                 newLine.at(2)=operand.at(2);
                 newLine.at(3)=operand.at(3);
                 newLine.at(4)=operand.at(4);
         }
-
-        cout<<newLine<<endl;
-
-
-//        for (int j; j<program.at(i).size(); j++)
-//        {
-//
-//            if (program.at(i).at(j)==':')
-//            {
-//                stringstream split(program.at(i));
-//                getline(split, op,':');
-//                for (int j; j<symbolTable.size(); j++)
-//                {
-//
-//                    if(op==symbolTable.at(j).name)
-//                    {
-//
-//                    }
-//                }
-//            }
-//        }
+        program.at(i)=newLine;
     }
+
+    for (int i=0; i<symbolTable.size(); i++)
+    {
+        if (symbolTable.at(i).data.at(0)=='V'&&symbolTable.at(i).data.at(1)=='A'&&symbolTable.at(i).data.at(2)=='R')
+
+        {
+            int n;
+            string str=symbolTable.at(i).data;
+            str.erase(0,3);
+            istringstream (str) >> n;
+            int line;
+            istringstream (symbolTable.at(i).line) >> line;
+            program.at(line)=binaryConv(-n);
+        }
+    }
+}
+
+void outToFile(){
+
+ofstream file ("machineCode.txt");
+  if (file.is_open())
+  {
+    for (int i; i<program.size(); i++)
+    {
+        file<<program.at(i)<<endl;
+    }
+    file.close();
+  }
+
+
+
 }
 
 int main()
@@ -235,10 +206,12 @@ int main()
     openInstSet();
     openProgram();
     loadSymbols();
-//    for (int i; i<program.size(); i++)
-//    {
-//        cout<<program.at(i)<<endl;
-//    }
     convProgram();
+    outToFile();
+
+        for (int i; i<program.size(); i++)
+    {
+        cout<<program.at(i)<<endl;
+    }
     return 0;
 }
