@@ -42,16 +42,19 @@ void removeSpace(string& s)
 string binaryConv(int n)
 {
     string str="";
-    //if (n=0){
-    //    str="00000000000000000000000000000000";
-    //}else{
-        int binary;
-        bitset<32> x(n);
-        stringstream ss;
-        ss << x;
-        str = ss.str();
-        reverse(str.begin(),str.end());
-    //}
+    int binary;
+    bitset<32> x(n);
+    if(n<0)
+    {
+        n=n-(n+n);
+        bitset<32> y(n);
+        y.flip();
+        bitset<32> z(y.to_ulong() + 1);
+        str=z.to_string();
+        x=z;
+    }
+    str=x.to_string();
+    reverse(str.begin(),str.end());
     return str;
 }
 
@@ -147,14 +150,16 @@ void convProgram()
     {
         newLine="00000000000000000000000000000000";
         for (int k=0; k<7; k++)
-        if (program.at(i).find(instructionSet[k][1])!=std::string::npos){
-            op=instructionSet[k][0];
-            newLine.at(13)=op.at(0);
-            newLine.at(14)=op.at(1);
-            newLine.at(15)=op.at(2);
-        }
+            if (program.at(i).find(instructionSet[k][1])!=std::string::npos)
+            {
+                op=instructionSet[k][0];
+                newLine.at(13)=op.at(0);
+                newLine.at(14)=op.at(1);
+                newLine.at(15)=op.at(2);
+            }
         for (int j=0; j<symbolTable.size(); j++)
-        if (program.at(i).find(symbolTable.at(j).name)!=std::string::npos){
+            if (program.at(i).find(symbolTable.at(j).name)!=std::string::npos)
+            {
                 operand="";
                 operand=symbolTable.at(j).line;
                 int n=0;
@@ -165,7 +170,7 @@ void convProgram()
                 newLine.at(2)=operand.at(2);
                 newLine.at(3)=operand.at(3);
                 newLine.at(4)=operand.at(4);
-        }
+            }
         program.at(i)=newLine;
     }
 
@@ -180,22 +185,23 @@ void convProgram()
             istringstream (str) >> n;
             int line;
             istringstream (symbolTable.at(i).line) >> line;
-            program.at(line)=binaryConv(-n);
+            program.at(line)=binaryConv(n);
         }
     }
 }
 
-void outToFile(){
+void outToFile()
+{
 
-ofstream file ("machineCode.txt");
-  if (file.is_open())
-  {
-    for (int i; i<program.size(); i++)
+    ofstream file ("machineCode.txt");
+    if (file.is_open())
     {
-        file<<program.at(i)<<endl;
+        for (int i; i<program.size(); i++)
+        {
+            file<<program.at(i)<<endl;
+        }
+        file.close();
     }
-    file.close();
-  }
 
 
 
@@ -209,7 +215,7 @@ int main()
     convProgram();
     outToFile();
 
-        for (int i; i<program.size(); i++)
+    for (int i; i<program.size(); i++)
     {
         cout<<program.at(i)<<endl;
     }
