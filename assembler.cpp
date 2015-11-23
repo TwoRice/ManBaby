@@ -158,7 +158,7 @@ void convProgram()
                 newLine.at(15)=op.at(2);
             }
         for (int j=0; j<symbolTable.size(); j++)
-            if (program.at(i).find(symbolTable.at(j).name)!=std::string::npos)
+            if (program.at(i).find(symbolTable.at(j).name)!=std::string::npos&&op!="111")
             {
                 operand="";
                 operand=symbolTable.at(j).line;
@@ -177,7 +177,6 @@ void convProgram()
     for (int i=0; i<symbolTable.size(); i++)
     {
         if (symbolTable.at(i).data.at(0)=='V'&&symbolTable.at(i).data.at(1)=='A'&&symbolTable.at(i).data.at(2)=='R')
-
         {
             int n;
             string str=symbolTable.at(i).data;
@@ -186,6 +185,16 @@ void convProgram()
             int line;
             istringstream (symbolTable.at(i).line) >> line;
             program.at(line)=binaryConv(n);
+        }
+    }
+
+    for (int i=0; i<symbolTable.size(); i++)
+    {
+        if (symbolTable.at(i).data.at(0)!='V'&&symbolTable.at(i).data.at(1)!='A'&&symbolTable.at(i).data.at(2)!='R')
+        {
+            int line;
+            istringstream (symbolTable.at(i).line) >> line;
+            program.push_back(binaryConv(line));
         }
     }
 }
